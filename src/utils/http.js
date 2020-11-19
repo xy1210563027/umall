@@ -428,53 +428,112 @@ export const reqgoodsCount=()=>{
 
 // ===========秒杀接口 开始====================
 
-//13.添加
-export const reqSeckadd=(form)=>{
+//1.限时秒杀列表
+export const reqSecksList = (p) => { 
     return axios({
-        url:baseUrl+"/api/seckadd",
-        method:"post",
-        data:qs.stringify(form)
+      method: "get",
+      url: baseUrl + "/api/secklist",
+      params: p,
+  
+    })
+  }
+  //2.限时秒杀获取一条数据赋值给秒杀
+  export const reqSecksDetail = (id) => { 
+    return axios({
+      method: "get",
+      url: baseUrl + "/api/seckinfo",
+      params: {
+        id
+      }
+    })
+  }
+  //3.删除其中一条数据
+  export const reqSecksDel = (id) => {
+    return axios({
+      method: "post",
+      url: baseUrl + "/api/seckdelete",
+      data: qs.stringify({
+        id
+      })
+    })
+  }
+  //4.限时秒杀的修改部分
+  export const reqSecksUpdate = (secks) => { 
+    console.log(secks);
+    return axios({
+      method: "post",
+      url: baseUrl + "/api/seckedit",
+      data: qs.stringify(secks)
+    })
+  }
+  //5.秒杀添加
+  export const reqSecksAdd = (secks) => { 
+    console.log(secks);
+    return axios({
+      method: "post",
+      url: baseUrl + "/api/seckadd",
+      data: qs.stringify(secks)
+    })
+  }
+  
+// ===========秒杀接口 结束====================
+
+
+// ===========轮播图接口 开始====================
+
+// 轮播图列表
+export const reqbannerList=()=>{
+    return axios({
+        url:baseUrl+'/api/bannerlist',
+        method:'get'
     })
 }
 
-//18.列表交互
-export const reqSeckList=()=>{
+// 轮播图添加
+export const reqbannerAdd=(banner)=>{
+    let d = new FormData()
+    for(let i in banner){
+        d.append(i,banner[i])
+    }
     return axios({
-        url:baseUrl+"/api/secklist",
-        method:"get",
+        url:baseUrl+'/api/banneradd',
+        method:'post',
+        data:d
+    })
+}
+
+//轮播图获取一条详情
+export const reqbannerDetail=(id)=>{
+    return axios({
+        url:baseUrl+'/api/bannerinfo',
+        method:'get',
         params:{
-            istree:true
+            id:id
         }
     })
 }
 
-// 29.删除
-export const reqSeckdelete=(id)=>{
+// banner图修改
+export const reqbannerUpdate=(banner)=>{
+    let d = new FormData()
+    for(let i in banner){
+        d.append(i,banner[i])
+    }
     return axios({
-        url:baseUrl+"/api/seckdelete",
-        method:"post",
+        url:baseUrl+'/api/banneredit',
+        method:'post',
+        data:d
+    })
+}
+// 轮播图删除
+export const reqbannerDel=(id)=>{
+    return axios({
+        url:baseUrl+'/api/bannerdelete',
+        method:'post',
         data:qs.stringify({
             id:id
         })
     })
 }
 
-// 35.获取一条数据
-export const reqSeckinfo=(id)=>{
-    return axios({
-        url:baseUrl+"/api/seckinfo",
-        method:"get",
-        params:{
-            id:id
-        }
-    })
-}
-//38.修改
-export const reqSeckedit=(form)=>{
-    return axios({
-        url:baseUrl+"/api/seckedit",
-        method:"post",
-        data:qs.stringify(form)
-    })
-}
-// ===========秒杀接口 结束====================
+// ===========轮播图接口 结束====================

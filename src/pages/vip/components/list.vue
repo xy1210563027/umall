@@ -5,7 +5,6 @@
       style="width: 100%;margin-bottom: 20px;"
       row-key="id"
       border
-      :tree-props="{children: 'children'}"
     >
       <el-table-column prop="id" label="用户编号" sortable></el-table-column>
       <el-table-column prop="title" label="昵称" sortable></el-table-column>
@@ -18,8 +17,7 @@
       </el-table-column>
       <el-table-column prop="cz" label="操作">
         <template slot-scope="scope">
-          <el-button type="primary" @click="edit(scope.row.id)">编辑</el-button>
-          <el-button type="danger" @click="del(scope.row.id)">删除</el-button>
+          <el-button type="primary" @click="edit(scope.row.uid)">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -27,13 +25,16 @@
 </template>
 
 <script>
-import { reqLoginvip} from "../../../utils/http"
+import { reqLoginvip,reqViplist} from "../../../utils/http"
 export default {
     props: ["list"],
      methods:{
-    
-  }
-
+      //  编辑
+       edit(uid){
+          //通知父组件，要编辑了
+         this.$emit("edit",uid)
+       }
+  },
 }
 </script>
 
