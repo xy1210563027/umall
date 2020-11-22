@@ -21,6 +21,7 @@
         <template slot-scope="scope">
           <el-button type="primary" @click="edit(scope.row.id)">编辑</el-button>
           <!-- 32.绑定confirm事件 -->
+             <!-- 这里用的是公共组件 -->
           <del-btn @confirm="del(scope.row.id)"></del-btn>
         </template>
       </el-table-column>
@@ -30,23 +31,25 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-// import { reqRoleDel } from "../../../utils/http";
+import { reqUserDell } from "../../../utils/http";
 import { successAlert } from "../../../utils/alert";
 export default {
   // 22.接收list
   props: ["list"],
     methods:{
           // 27 删除
-    del(id) {
-      //删除的请求
-      // reqRoleDel(id).then(res => {
-      //   if (res.data.code == 200) {
-      //     //成功的弹框
-      //     successAlert(res.data.msg);
-      //     //28.通知父组件刷新list
-      //     this.$emit("init");
-      //   }
-      // });
+    del(sid) {
+    
+      // 删除的请求
+      reqUserDell(sid).then(res => {
+        
+        if (res.data.code == 200) {
+          //成功的弹框
+          successAlert(res.data.msg);
+          //28.通知父组件刷新list
+          this.$emit("init");
+        }
+      });
     },
      //34.编辑
     edit(id){

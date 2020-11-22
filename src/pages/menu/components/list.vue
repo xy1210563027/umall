@@ -3,7 +3,7 @@
     <!-- 21.展示list -->
     <el-table
       :data="list"
-      style="width: 100%;margin-bottom: 20px;"
+      style="width: 100%;margin-bottom: 20px;"      
       row-key="id"
       border
       :tree-props="{children: 'children'}"
@@ -45,14 +45,18 @@ export default {
     ...mapActions({}),
     // 28.删除
     del(id) {
+    console.log(id,"123")
+      // $confirm Element-ul 删除弹框
       this.$confirm("你确定要删除吗？", "删除提示", {
         confirmButtonText: "删除",
         cancelButtonText: "取消",
         type: "warning"
       })
         .then(() => {
+           console.log(111);
           //删除的请求
           reqMenuDel(id).then(res=>{
+              
             if(res.data.code==200){
               //成功的弹框
               successAlert(res.data.msg)

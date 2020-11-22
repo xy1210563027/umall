@@ -7,9 +7,9 @@
       border
     >
       <el-table-column prop="id" label="用户编号" sortable></el-table-column>
-      <el-table-column prop="title" label="昵称" sortable></el-table-column>
-      <el-table-column prop="sjh" label="手机号 " sortable></el-table-column>
-      <el-table-column prop="zt" label="状态">
+      <el-table-column prop="nickname" label="昵称" sortable></el-table-column>
+      <el-table-column prop="phone" label="手机号 " sortable></el-table-column>
+      <el-table-column prop="status" label="状态">
         <template slot-scope="scope">
           <el-button type="primary" v-if="scope.row.status===1">启用</el-button>
           <el-button type="info" v-else>禁用</el-button>

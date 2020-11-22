@@ -6,7 +6,7 @@
     <!-- table -->
     <!-- 19.将list传递给list.vue 组件 -->
     <!-- 30.绑定自定义事件init -->
-    <!-- 32.绑定自定义事件edit -->
+    <!-- 32.绑定自定义编辑事件edit -->
     <v-list :list="list" @init="init" @edit="edit($event)"></v-list>
 
     <!-- 弹框 -->
@@ -40,10 +40,14 @@ export default {
     ...mapActions({}),
     //2.点了添加按钮
     willAdd() {
+      // this.$message({
+      //   $message:'成功',
+      //   type:success
+      // })
       this.info.isshow = true;
       this.info.title="添加菜单"
     },
-    //26 处理
+    //26 处理 接收form添加后的列表
     init() {
       reqMenuList().then(res => {
         this.list = res.data.list;

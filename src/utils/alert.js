@@ -15,3 +15,4 @@ export const errorAlert = (msg) => {
         type: "warning"
     });
 }
+

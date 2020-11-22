@@ -1,6 +1,6 @@
 <template>
   <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-  <div id="main"></div>
+  <div id="main" style="width: 1000px;height:500px;"></div>
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
@@ -26,7 +26,7 @@ export default {
           // 指定图表的配置项和数据
           var option = {
             title: {
-              text: "前端学习课程天数"
+              text: "分类页面"
             },
             tooltip: {},
             legend: {

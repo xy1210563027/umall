@@ -17,7 +17,7 @@
           unique-opened
           router
         >
-          <el-menu-item index="/">
+          <el-menu-item index="/home">
             <i class="el-icon-menu"></i>
             <span slot="title">首页</span>
           </el-menu-item>
@@ -51,13 +51,13 @@
       </el-aside>
       <el-container>
         <el-header>
-          <!-- <span>{{ userInfo.username }}</span> -->
+          <span>{{ userInfo.username }}</span>
           <el-button type="primary" @click="logout" class="right">退出登录</el-button>
         </el-header>
         <el-main>
           <!-- 面包屑 -->
           <el-breadcrumb separator="/" v-if="$route.name">
-            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>
               <a href="/">{{ $route.name }}</a>
             </el-breadcrumb-item>

@@ -1,22 +1,30 @@
 <template>
   <div>
-    <!-- 5.绑定info.isshow到模板 -->
+    <!-- 5.绑定info.isshow到模板  点击closed弹框消失 -->
     <el-dialog :title="info.title" :visible.sync="info.isshow" @closed="closed">
       <el-form :model="form">
         <el-form-item label="菜单名称" label-width="120px">
           <el-input v-model="form.title" autocomplete="off"></el-input>
         </el-form-item>
+         
         <el-form-item label="上级菜单" label-width="120px">
+          <!-- 上级菜单发生了修改changePid -->
           <el-select v-model="form.pid" placeholder="请选择" @change="changePid">
             <el-option label="顶级菜单" :value="0"></el-option>
-            <!-- 23 list遍历 -->
-            <el-option v-for="item in list" :key="item.id" :label="item.title" :value="item.id"></el-option>
+            <!-- 23   form.vue接收list数据，并遍历 --> 
+            <el-option 
+            v-for="item in list"
+             :key="item.id" 
+             :label="item.title"
+            :value="item.id"></el-option>
           </el-select>
         </el-form-item>
+
         <el-form-item label="菜单类型" label-width="120px">
           <el-radio v-model="form.type" :label="1" disabled>目录</el-radio>
           <el-radio v-model="form.type" :label="2" disabled>菜单</el-radio>
         </el-form-item>
+
         <!-- 15.目录有图标，菜单有地址 -->
         <el-form-item label="菜单图标" v-if="form.type===1" label-width="120px">
           <el-select v-model="form.icon" placeholder="请选择">
@@ -25,6 +33,7 @@
             </el-option>
           </el-select>
         </el-form-item>
+
         <el-form-item label="菜单地址" v-else label-width="120px">
           <el-select v-model="form.url" placeholder="请选择">
             <!-- 10.遍历routes -->
@@ -36,16 +45,20 @@
             ></el-option>
           </el-select>
         </el-form-item>
+
         <el-form-item label="状态" label-width="120px">
           <el-switch v-model="form.status" :active-value="1" :inactive-value="2"></el-switch>
         </el-form-item>
-      </el-form>
+   </el-form>
       
       <div slot="footer" class="dialog-footer">
         <el-button @click="cancel">取 消</el-button>
+        <!-- 点击了添加按钮add  form弹框置空 -->
         <el-button type="primary" @click="add" v-if="info.title==='添加菜单'">添 加</el-button>
+       <!-- update 修改事件-->
         <el-button type="primary" @click="update" v-else>修 改</el-button>
       </div>
+
     </el-dialog>
   </div>
 </template>
@@ -111,8 +124,7 @@ export default {
     },
     //12.点击了添加按钮
     add() {
-      //发起添加的请求
-   
+      //发起添加的请求   
       reqMenuAdd(this.form).then(res => {
         if (res.data.code === 200) {
           //成功
@@ -125,6 +137,7 @@ export default {
           //24.通知menu刷新列表数据
           this.$emit("init");
         } else {
+          //失败弹框
           errorAlert(res.data.msg);
         }
       });

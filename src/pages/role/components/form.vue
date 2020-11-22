@@ -4,6 +4,7 @@
 
     <!-- 40 绑定closed -->
     <el-dialog :title="info.title" :visible.sync="info.isshow" @closed="closed">
+       <!-- 把那一条数据赋值给Form,就可以展示在表单上 -->
       <el-form :model="user">
         <el-form-item label="角色名称" label-width="120px">
           <!-- 9.通过v-model将user绑定到表单上 -->
@@ -18,6 +19,9 @@
             this.$refs.tree.getCheckedKeys() 可以取到选中节点的key拼成的数组
             this.$refs.tree.setCheckedKeys([10,11,12]); 给树设置值
           -->
+
+          
+           <!-- 绑定menuList -->
           <el-tree
             :data="menuList"
             show-checkbox
@@ -36,10 +40,10 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
+           <!-- 点击添加按钮就显示添加菜单,点击表格里的编辑按钮就出现编辑菜单 -->
+           <!-- @click="cancel"绑定点击取消事件 -->
         <el-button @click="cancel">取 消</el-button>
-        <el-button type="primary" v-if="info.title == '添加角色'" @click="add"
-          >添 加</el-button
-        >
+        <el-button type="primary" v-if="info.title == '添加角色'" @click="add" >添 加</el-button>
         <el-button type="primary" v-else @click="update">修 改</el-button>
       </div>
     </el-dialog>
@@ -47,11 +51,13 @@
 </template>
 
 <script>
+
 import { mapGetters, mapActions } from "vuex";
 import {
   reqMenuList,
   reqRoleAdd,
   reqRoleDetail,
+  reqRoleUpdate
   
 } from "../../../utils/http";
 import { successAlert } from "../../../utils/alert";
@@ -60,9 +66,11 @@ export default {
   props: ["info"],
   data() {
     return {
+      // 7.初始化user
       user: {
         rolename: "",
         menus: "",
+        //角色状态，需要number
         status: 1,
       },
       //  11.初始化树形控件
@@ -70,14 +78,16 @@ export default {
     };
   },
   methods: {
-    // 6.点了取消
+    // 6.点了取消 隐藏form弹框
     cancel() {
-      this.info.isshoe = flase;
+      this.info.isshow = false;
     },
     // 17.清空数据
     empty() {
       this.user = {
         rolenzme: "",
+
+        
         menuts: "",
         status: 1,
       };
@@ -120,18 +130,18 @@ export default {
     //39 修改
     update() {
       this.user.menus = JSON.stringify(this.$refs.tree.getCheckedKeys());
-      // reqRoleUpdate(this.user).then((res) => {
-      //   if (res.data.code == 200) {
-      //     //弹成功
-      //     successAlert("修改成功");
-      //     //弹框消失
-      //     this.cancel();
-      //     //数据清空
-      //     this.empty();
-      //     //刷新list
-      //     this.$emit("init");
-      //   }
-      //});
+      reqRoleUpdate(this.user).then((res) => {
+        if (res.data.code == 200) {
+          //弹成功
+          successAlert("修改成功");
+          //弹框消失
+          this.cancel();
+          //数据清空
+          this.empty();
+          //刷新list
+          this.$emit("init");
+        }
+      });
     },
     //41.处理消失
     closed() {

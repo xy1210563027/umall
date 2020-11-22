@@ -28,6 +28,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="cancel">取 消</el-button>
+        <!-- v-if="info.title=='添加管理员  如果弹框的标题是添加管理 是添加 -->
         <el-button type="primary" v-if="info.title=='添加管理员'" @click="add">添 加</el-button>
         <el-button type="primary" v-else  @click="update">修 改</el-button>
       </div>
@@ -132,6 +133,8 @@ export default {
         this.roleList = res.data.list;
       }
     });
+
+
   }
 };
 </script>

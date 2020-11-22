@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
+import store from "../store"
+import { reqLogin } from '../utils/http'
 
 // 7.将路由导出
 export let routes = [
@@ -97,7 +99,7 @@ export default new Router({
       },
       children: [
         {
-          path: "",
+          path: "/home",
           component: () => import("../pages/home/home"),
           meta: {
             requireAuth: true,
@@ -109,5 +111,4 @@ export default new Router({
     },
   ]
 })
-
 

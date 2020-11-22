@@ -4,7 +4,7 @@
 
     <!-- 21.传递list数据 给list 组件 -->
     <!-- 29 绑定自定义事件init -->
-    <!-- 35.绑定edit事件 -->
+    <!-- 35.绑定edit编辑事件 -->
     <v-list :list="list" @init="init" @edit="edit"></v-list>
 
     <!-- 2.传递info给form  -->

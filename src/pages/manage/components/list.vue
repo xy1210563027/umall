@@ -1,14 +1,16 @@
 <template>
   <div>
     <!-- 23.list展示在页面 -->
+    <!-- :data="用于存放请求数据回来的数组 -->
     <el-table
       :data="list"
       style="width: 100%;margin-bottom: 20px;"
       row-key="id"
-      border
+      border 
       :tree-props="{children: 'children'}"
-    >
-      <el-table-column prop="id" label="用户编号" sortable></el-table-column>
+         >
+     <!-- prop每列的单元格显示的内容      label表格标题-->
+      <el-table-column prop="id"       label="用户编号" sortable></el-table-column>
       <el-table-column prop="username" label="用户名称" sortable></el-table-column>
       <el-table-column prop="rolename" label="所属角色" sortable></el-table-column>
 
