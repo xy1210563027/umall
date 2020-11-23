@@ -32,7 +32,7 @@
             class="avatar-uploader"
             action="#"
             :show-file-list="false"
-            :on-change="changeFile2"
+            :on-change="changeFile"
           >
             <img v-if="imgUrl" :src="imgUrl" class="avatar" />
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -71,6 +71,7 @@ export default {
         img: null,
         statud: 1
       },
+      //用来上传文件的url,初始化图片路径
       imgUrl: ""
     };
   },
@@ -104,14 +105,7 @@ export default {
       //给user.img赋值
       this.user.img = file;
     },
-    //element-ui的上传文件
-    changeFile2(e) {
-      let file = e.raw;
 
-      this.imgUrl = URL.createObjectURL(file);
-
-      this.user.img = file;
-    },
 
     ...mapActions({
       reqList: "cate/reqList"
@@ -132,24 +126,17 @@ export default {
     },
     //10.点了添加按钮
     add() {
-      //16.ajax
-      let data = {
-        pid: this.user.pid,
-        catename: this.user.catename,
-        img: this.user.img,
-        status: this.user.status
-      };
-      reqcateAdd(data).then(res => {
-        if (res.data.code == 200) {
-          //弹成功
-          successAlert("添加成功");
-          //弹框消失
-          this.cancel();
-          //数据清空
-          this.empty();
-          //24 刷新list
-          this.reqList();
-        }
+      //点击了添加按钮以后
+      reqcateAdd(this.user).then((res) => {
+        //弹成功
+        successAlert("添加成功");
+        //弹框消失
+        this.cancel();
+        //数据清空
+        this.empty();
+        //24 刷新list
+        this.reqList();
+        
       });
     },
     //37 获取详情
@@ -197,36 +184,31 @@ export default {
 };
 </script>
 
-<style scoped >
-.myupload {
-  width: 100px;
-  height: 100px;
-  border-radius: 5px;
-  border: 1px dashed #ccc;
+<style scoped lang="stylus">
+.add >>> .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
   position: relative;
+  overflow: hidden;
 }
-.myupload h3 {
-  width: 100%;
-  height: 100px;
-  font-size: 30px;
+
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
   text-align: center;
-  line-height: 100px;
-  color: #666;
-  font-weight: 100;
 }
-.myupload .ipt {
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-}
-.myupload .img {
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  left: 0;
-  top: 0;
+
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
 }
 </style>

@@ -10,6 +10,7 @@ Vue.prototype.$imgPre="http://localhost:3000"
 
 //生产环境使用 打包
 // let baseUrl=""
+// Vue.prototype.$imgPre=""
 
 //请求拦截
 axios.interceptors.request.use(req=>{
@@ -184,7 +185,7 @@ export const reqUserDetail = uid => {
 }
 
 // 38.修改
-export const reqUserUpdate = (user) => {
+export const reqUserUpdates = (user) => {
     return axios({
         url: baseUrl + "/api/useredit",
         method: "post",
